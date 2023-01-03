@@ -1,4 +1,4 @@
-# APD_HW2 ~ Black Friday orders manager in Java
+# APD Homework 2 ~ Black Friday orders manager in Java
 ### Chiper Alexandra-Diana
 335CB 2022-2023
 

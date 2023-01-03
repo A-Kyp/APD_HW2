@@ -74,12 +74,17 @@ public class Tema2 {
 
         // <<< 4 >>>
         //close whatever was opened!
+        fjp.shutdown();
+        assert orders_in != null;
+        orders_in.close();
         try {
+            assert wOrders != null;
             wOrders.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
         try {
+            assert wProducts != null;
             wProducts.close();
         } catch (IOException e) {
             e.printStackTrace();

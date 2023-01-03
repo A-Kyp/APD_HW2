@@ -20,6 +20,7 @@ public class OrderTask extends Thread{
     ForkJoinPool fjp;
     String line;
     String[] args;
+    int total;
 
     public OrderTask(Scanner in, FileWriter ord_out, FileWriter prod_out, File prodFile,
                      ForkJoinPool fjp){
@@ -28,6 +29,7 @@ public class OrderTask extends Thread{
         this.products_out = prod_out;
         this.prodFile = prodFile;
         this.fjp = fjp;
+
     }
 
     @Override
@@ -44,22 +46,19 @@ public class OrderTask extends Thread{
                 while (orders_in.hasNextLine() && ok == 1) {
                     ok = 0;
                     line = orders_in.nextLine();
-                    System.out.println(line);
+
                     args = line.split(",");
+                    total = Integer.parseInt(args[1]);
 
                     // <<< 1.2 >>>
-                    if (Integer.parseInt(args[1]) == 0) {
+                    if (total == 0) {
                         ok = 1;
-                        System.out.println("comanda cu 0 produse -> ignora");
                     }
                 }
             }
 
             // <<< 2 >>>
-            fjp.invoke(new ProductTask(products_out, args[0], Integer.parseInt(args[1]), prodFile));
-            //finish
-            // completing the
-            // constructor
+            fjp.invoke(new ProductTask(null, products_out, args[0], total, 1, prodFile));
 
             // <<< 3 >>>
             synchronized (orders_out) {
